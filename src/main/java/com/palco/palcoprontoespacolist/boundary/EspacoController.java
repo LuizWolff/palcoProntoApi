@@ -66,6 +66,23 @@ public class EspacoController {
         return espacosFiltrados;
     }
 
+    @GetMapping("/espaco/disponibility")
+    public List<Espaco> getEspacoPorDisponibilty(@RequestParam String desc) {
+        List<Espaco> espacosFiltrados = espacoRepository.findAll().stream()
+                .filter(espaco -> espaco.getDisponibility().toLowerCase().contains(desc.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return espacosFiltrados;
+    }
+
+    @GetMapping("/espaco/place")
+    public List<Espaco> getEspacoPorPlace(@RequestParam String desc) {
+        List<Espaco> espacosFiltrados = espacoRepository.findAll().stream()
+                .filter(espaco -> espaco.getPlace().toLowerCase().contains(desc.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return espacosFiltrados;
+    }
 
 
 
