@@ -29,8 +29,7 @@ public class EspacoService {
        Espaco savedEspaco = espacoRepository.save(espaco);
 
        EspacoResponseDto responseDto = new EspacoResponseDto(savedEspaco.getId(),savedEspaco.getName(),
-               savedEspaco.getDescription(),savedEspaco.getPlace(),savedEspaco.getPeopleCapacity(),
-               savedEspaco.getDisponibility());
+               savedEspaco.getDescription(),savedEspaco.getPeopleCapacity(), savedEspaco.getDisponibility());
 
         return responseDto;
     }
@@ -40,7 +39,7 @@ public class EspacoService {
 
         List<EspacoResponseDto> espacoResponseDtos  = getEspaco.stream().map(espaco ->
                 new EspacoResponseDto(espaco.getId(),espaco.getName(),
-                        espaco.getDescription(),espaco.getPlace(), espaco.getPeopleCapacity(), espaco.getDisponibility())).toList();
+                        espaco.getDescription(), espaco.getPeopleCapacity(), espaco.getDisponibility())).toList();
 
         return espacoResponseDtos;
     }
@@ -65,7 +64,7 @@ public class EspacoService {
             Espaco espacoEditado = espacoRepository.save(espaco);
 
             return new EspacoResponseDto(espacoEditado.getId(),espacoEditado.getName(),
-                    espacoEditado.getDescription(),espacoEditado.getPlace(), espacoEditado.getPeopleCapacity(),
+                    espacoEditado.getDescription(), espacoEditado.getPeopleCapacity(),
                     espacoEditado.getDisponibility());
         }
 

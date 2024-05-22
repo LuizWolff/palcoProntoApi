@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-@SpringBootTest(classes = EspacoListApplication.class)
-public class EspacoListApplicationTests {
+@SpringBootTest(classes = PalcoProntoApplication.class)
+public class PalcoProntoApplicationTests {
 
 	@MockBean
 	private EspacoRepository espacoRepository;
@@ -31,7 +31,7 @@ public class EspacoListApplicationTests {
 	@Test
 	public void testSaveEspaco() {
 		EspacoRequestDto requestDto = new EspacoRequestDto("PalcoTeste",
-				"Descrição", "SãoPaulo", 2000, "Disponivel");
+				"DescriÃ§Ã£o", "SÃ£oPaulo", 2000, "Disponivel");
 		Espaco palco = new Espaco();
 		palco.setName(requestDto.getName());
 		palco.setDescription(requestDto.getDescription());
@@ -54,14 +54,14 @@ public class EspacoListApplicationTests {
 		Espaco espaco1 = new Espaco();
 		espaco1.setId(1L);
 		espaco1.setName("Espaco 1");
-		espaco1.setDescription("Descrição 1");
+		espaco1.setDescription("DescriÃ§Ã£o 1");
 		espaco1.setPeopleCapacity(10);
 		espaco1.setDisponibility("Disponivel");
 
 		Espaco espaco2 = new Espaco();
 		espaco2.setId(2L);
 		espaco2.setName("Espaco 2");
-		espaco2.setDescription("Descrição 2");
+		espaco2.setDescription("DescriÃ§Ã£o 2");
 		espaco2.setPeopleCapacity(20);
 		espaco1.setDisponibility("Ocupado");
 
@@ -96,12 +96,12 @@ public class EspacoListApplicationTests {
 	public void testEditarEspaco() {
 		Long id = 1L;
 		EspacoRequestDto requestDto = new EspacoRequestDto("PalcoTest",
-				"Nova Descrição", "SãoPaulo", 2000, "Disponivel");
+				"Nova DescriÃ§Ã£o", "SÃ£oPaulo", 2000, "Disponivel");
 
 		Espaco palcoExistente = new Espaco();
 		palcoExistente.setId(id);
 		palcoExistente.setName("PalcoTest Antigo");
-		palcoExistente.setDescription("Descrição Antiga");
+		palcoExistente.setDescription("DescriÃ§Ã£o Antiga");
 		palcoExistente.setDisponibility("Disponivel");
 		palcoExistente.setPeopleCapacity(10);
 		palcoExistente.setPlace("Local Antigo");
@@ -130,7 +130,7 @@ public class EspacoListApplicationTests {
 	public void testEditarEspacoNaoEncontrado() {
 		Long id = 1L;
 		EspacoRequestDto requestDto = new EspacoRequestDto("Palco Test",
-				"Nova Descrição", "SãoPaulo", 2000, "Disponivel");
+				"Nova DescriÃ§Ã£o", "SÃ£oPaulo", 2000, "Disponivel");
 
 		Mockito.when(espacoRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -145,12 +145,12 @@ public class EspacoListApplicationTests {
 	public void testEditarEspacoParcial() {
 		Long id = 1L;
 		EspacoRequestDto requestDto = new EspacoRequestDto("PalcoTest",
-				"Nova Descrição", "SãoPaulo", 2000, "Sim");
+				"Nova DescriÃ§Ã£o", "SÃ£oPaulo", 2000, "Sim");
 
 		Espaco palcoExistente = new Espaco();
 		palcoExistente.setId(id);
 		palcoExistente.setName("Palco Antigo");
-		palcoExistente.setDescription("Descrição Antiga");
+		palcoExistente.setDescription("DescriÃ§Ã£o Antiga");
 
 		Mockito.when(espacoRepository.findById(id)).thenReturn(Optional.of(palcoExistente));
 
