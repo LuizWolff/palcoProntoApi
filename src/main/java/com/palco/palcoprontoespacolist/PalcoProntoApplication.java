@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @SpringBootApplication
-public class PalcoProntoApplication {
+class PalcoProntoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PalcoProntoApplication.class, args);

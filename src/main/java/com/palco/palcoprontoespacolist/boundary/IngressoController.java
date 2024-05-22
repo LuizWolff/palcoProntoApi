@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/ingressos")
+@RequestMapping("palcopronto/ingressos")
 public class IngressoController {
 
     @Autowired

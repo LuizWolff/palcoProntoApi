@@ -1,35 +1,37 @@
 package com.palco.palcoprontoespacolist.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="espaco")
-public class Espaco {
+@Table(name = "eventos")
+public class Eventos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String name;
+    @Column(nullable = false)
+    private String name; // Normal, VIP
 
     @Column(name = "desc", nullable = false)
     private String description;
 
-    @Column
-    private String place;
-
     @Column(nullable = false)
-    private int peopleCapacity;
+    private LocalDateTime datetime;
 
-    @Column
-    private String disponibility;
+    @ManyToOne
+    @JoinColumn(name = "id_espaco")
+    private Espaco espaco; // Usando a classe Espaco diretamente
 
-
+    @OneToMany
+    @JoinColumn(name = "id_evento")
+    private List<Ingresso> ingressos;
 }

@@ -23,4 +23,5 @@ public class Ingresso {
 
     @Column(nullable = false)
     private int quantidadeDisponivel;
+
 }
