@@ -12,6 +12,7 @@ public class EspacoItem {
 
     private Long id;
     private String name;
+    private String place;
     private String description;
     private String disponibilidade;
 

@@ -15,6 +15,7 @@ public class EspacoResponseDto {
     private Long id;
     private String name;
     private String description;
+    private String place;
     private Integer peopleCapacity;
     private String disponibility;
 
