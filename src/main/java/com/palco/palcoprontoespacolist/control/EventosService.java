@@ -59,20 +59,30 @@ public class EventosService {
 
 
 
-    public Eventos atualizarEventos(Long id, Eventos eventosAtualizado) {
+    public Eventos atualizarEventos(Long id, String name, String description, LocalDateTime dateTime, Long idEspaco, List<Long> idsIngressos) {
         return eventosRepository.findById(id)
-                .map(eventos -> {
-                    eventos.setName(eventosAtualizado.getName());
-                    eventos.setDescription(eventosAtualizado.getDescription());
-                    eventos.setEspaco(eventosAtualizado.getEspaco());
-                    eventos.setIngressos(eventosAtualizado.getIngressos());
-                    return eventosRepository.save(eventos);
+                .map(eventoExistente -> {
+                    eventoExistente.setName(name);
+                    eventoExistente.setDescription(description);
+                    eventoExistente.setDatetime(dateTime);
+
+                    // Atualizar apenas o ID do espaço se for diferente
+                    if (!eventoExistente.getEspaco().getId().equals(idEspaco)) {
+                        Espaco espaco = espacoRepository.findById(idEspaco)
+                                .orElseThrow(() -> new IllegalArgumentException("Espaço não encontrado"));
+                        eventoExistente.setEspaco(espaco);
+                    }
+
+                    // Atualizar os IDs dos ingressos apenas se forem diferentes
+                    List<Ingresso> ingressos = ingressoRepository.findAllById(idsIngressos);
+                    eventoExistente.getIngressos().clear(); // Limpar a lista atual de ingressos
+                    eventoExistente.getIngressos().addAll(ingressos);
+
+                    return eventosRepository.save(eventoExistente);
                 })
-                .orElseGet(() -> {
-                    eventosAtualizado.setId(id);
-                    return eventosRepository.save(eventosAtualizado);
-                });
+                .orElseThrow(() -> new IllegalArgumentException("Evento não encontrado"));
     }
+
     public void deletarEventos(Long id) {
         eventosRepository.deleteById(id);
     }

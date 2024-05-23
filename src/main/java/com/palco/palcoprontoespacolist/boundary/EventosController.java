@@ -34,8 +34,18 @@ public class EventosController {
     }
 
     @PutMapping("/{id}")
-    public Eventos atualizarIngresso(@PathVariable Long id, @RequestBody Eventos eventosAtualizado) {
-        return eventosService.atualizarEventos(id, eventosAtualizado);
+    public Eventos atualizarEvento(
+            @PathVariable Long id,
+            @RequestBody AtualizarEventoRequest request) {
+
+        return eventosService.atualizarEventos(
+                id,
+                request.getName(),
+                request.getDescription(),
+                request.getDateTime(),
+                request.getIdEspaco(),
+                request.getIdsIngressos()
+        );
     }
 
     @DeleteMapping("/{id}")
