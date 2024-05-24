@@ -55,11 +55,18 @@ public class RelatorioService {
             }
             relatorio.setPrecoTotal(precoTotal);
 
+            // Configure o valor de disponibility
+            relatorio.setDisponibility(espaco.getDisponibility());
+
             // Salve o relatório no banco de dados
             return relatorioRepository.save(relatorio);
         } else {
             throw new EntityNotFoundException("Evento ou espaço não encontrado");
         }
+    }
+
+    private String obterDisponibilidadeEspaco(Espaco espaco) {
+        return espaco.getDisponibility();
     }
 
     public Relatorio atualizarRelatorio(Long id, Relatorio relatorioAtualizado) {

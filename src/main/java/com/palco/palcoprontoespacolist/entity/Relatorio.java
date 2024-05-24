@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,16 +25,16 @@ public class Relatorio {
     @JoinColumn(name = "id_evento")
     private Eventos eventos;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_espaco")
+    @Fetch(FetchMode.JOIN)
     private Espaco espaco;
 
     @Column(name = "preco_total")
     private BigDecimal precoTotal;
 
-    @Transient
+    @Column
     private String disponibility;
-
 
 }
 
