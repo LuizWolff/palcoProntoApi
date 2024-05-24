@@ -3,16 +3,12 @@ package com.palco.palcoprontoespacolist.control;
 import com.palco.palcoprontoespacolist.entity.Espaco;
 import com.palco.palcoprontoespacolist.entity.Eventos;
 import com.palco.palcoprontoespacolist.entity.Ingresso;
-import com.palco.palcoprontoespacolist.boundary.IngressoItem;
-import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
