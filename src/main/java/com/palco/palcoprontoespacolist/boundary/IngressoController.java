@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("palcopronto/ingressos")
@@ -17,28 +18,38 @@ public class IngressoController {
     private IngressoService ingressoService;
 
     @GetMapping
-    public List<Ingresso> obterTodosIngressos() {
-        return ingressoService.obterTodosIngressos();
+    public List<IngressoResponse> obterTodosIngressos() {
+        List<Ingresso> ingressos = ingressoService.obterTodosIngressos();
+        return ingressos.stream()
+                .map(this::mapToIngressoResponse)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Optional<Ingresso> obterIngressoPorId(@PathVariable Long id) {
-        return ingressoService.obterIngressoPorId(id);
+    public Optional<IngressoResponse> obterIngressoPorId(@PathVariable Long id) {
+        Optional<Ingresso> ingresso = ingressoService.obterIngressoPorId(id);
+        return ingresso.map(this::mapToIngressoResponse);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Ingresso criarIngresso(@RequestBody Ingresso ingresso) {
-        return ingressoService.criarIngresso(ingresso);
+    public IngressoResponse criarIngresso(@RequestBody Ingresso ingresso) {
+        Ingresso novoIngresso = ingressoService.criarIngresso(ingresso);
+        return mapToIngressoResponse(novoIngresso);
     }
 
     @PutMapping("/{id}")
-    public Ingresso atualizarIngresso(@PathVariable Long id, @RequestBody Ingresso ingressoAtualizado) {
-        return ingressoService.atualizarIngresso(id, ingressoAtualizado);
+    public IngressoResponse atualizarIngresso(@PathVariable Long id, @RequestBody Ingresso ingressoAtualizado) {
+        Ingresso ingresso = ingressoService.atualizarIngresso(id, ingressoAtualizado);
+        return mapToIngressoResponse(ingresso);
     }
 
     @DeleteMapping("/{id}")
     public void deletarIngresso(@PathVariable Long id) {
         ingressoService.deletarIngresso(id);
+    }
+
+    private IngressoResponse mapToIngressoResponse(Ingresso ingresso) {
+        return new IngressoResponse(ingresso.getId(), ingresso.getTipo(), ingresso.getPreco(), ingresso.getQuantidadeDisponivel());
     }
 }
