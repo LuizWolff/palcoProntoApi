@@ -30,9 +30,5 @@ public class Relatorio {
     @Column(name = "preco_total")
     private BigDecimal precoTotal;
 
-    @Transient
-    private String disponibility;
-
-
 }
 
