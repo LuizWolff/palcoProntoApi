@@ -34,6 +34,7 @@ public class PedidoService {
             logger.debug("Ingresso encontrado: {}", ingresso);
             if (ingresso.getQuantidadeDisponivel() >= pedido.getQuantidade()) {
                 ingresso.setQuantidadeDisponivel(ingresso.getQuantidadeDisponivel() - pedido.getQuantidade());
+                ingresso.setQuantidadeComprado(ingresso.getQuantidadeComprado() + pedido.getQuantidade());
                 ingressoRepository.save(ingresso);
                 Pedido pedidoSalvo = pedidoRepository.save(pedido);
                 logger.debug("Pedido criado com sucesso: {}", pedidoSalvo);

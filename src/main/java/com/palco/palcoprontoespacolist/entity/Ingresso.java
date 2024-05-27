@@ -23,4 +23,7 @@ public class Ingresso {
     @Column(nullable = false)
     private int quantidadeDisponivel;
 
+    @Column
+    private int quantidadeComprado;
+
 }

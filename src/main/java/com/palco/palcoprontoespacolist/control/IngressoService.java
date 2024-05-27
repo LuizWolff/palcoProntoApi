@@ -35,6 +35,7 @@ public class IngressoService {
                     ingresso.setTipo(ingressoAtualizado.getTipo());
                     ingresso.setPreco(ingressoAtualizado.getPreco());
                     ingresso.setQuantidadeDisponivel(ingressoAtualizado.getQuantidadeDisponivel());
+                    ingresso.setQuantidadeComprado(ingressoAtualizado.getQuantidadeComprado());
                     return ingressoRepository.save(ingresso);
                 })
                 .orElseGet(() -> {
