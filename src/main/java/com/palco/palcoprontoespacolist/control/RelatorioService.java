@@ -24,6 +24,12 @@ public class RelatorioService {
     @Autowired
     private EspacoRepository espacoRepository;
 
+    @Autowired
+    private IngressoRepository ingressoRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
     public List<Relatorio> obterTodosRelatorios() {
         return relatorioRepository.findAll();
     }
@@ -37,6 +43,7 @@ public class RelatorioService {
         Optional<Eventos> optionalEvento = eventosRepository.findById(eventoId);
         Optional<Espaco> optionalEspaco = espacoRepository.findById(espacoId);
 
+
         if (optionalEvento.isPresent() && optionalEspaco.isPresent()) {
             Eventos evento = optionalEvento.get();
             Espaco espaco = optionalEspaco.get();
@@ -48,15 +55,22 @@ public class RelatorioService {
             // Obtenha a lista de ingressos associados ao evento
             List<Ingresso> ingressos = evento.getIngressos();
 
+
             // Calcule o precoTotal como a soma dos preços de todos os ingressos
             BigDecimal precoTotal = BigDecimal.ZERO;
+
             for (Ingresso ingresso : ingressos) {
-                precoTotal = precoTotal.add(BigDecimal.valueOf(ingresso.getPreco()));
+                BigDecimal precoIngresso = BigDecimal.valueOf(ingresso.getPreco());
+                BigDecimal quantidadeComprada = BigDecimal.valueOf(ingresso.getQuantidadeComprado());
+                BigDecimal precoTotalIngresso = precoIngresso.multiply(quantidadeComprada);
+                precoTotal = precoTotal.add(precoTotalIngresso);
             }
-            relatorio.setPrecoTotal(precoTotal);
+
+            relatorio.setPrecoTotalVendidoIngresso(precoTotal);
+
 
             // Configure o valor de disponibility
-            relatorio.setDisponibility(espaco.getDisponibility());
+            relatorio.setDisponibilityEspaco(espaco.getDisponibility());
 
             // Salve o relatório no banco de dados
             return relatorioRepository.save(relatorio);
