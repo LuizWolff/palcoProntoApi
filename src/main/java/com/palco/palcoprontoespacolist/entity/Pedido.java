@@ -24,5 +24,4 @@ public class Pedido {
 
     @Column(nullable = false)
     private String tipoDeIngresso; // Normal, VIP
-
 }

@@ -30,11 +30,11 @@ public class Relatorio {
     @Fetch(FetchMode.JOIN)
     private Espaco espaco;
 
-    @Column
-    private String disponibilityEspaco;
+    @Column(name = "preco_total")
+    private BigDecimal precoTotal;
 
     @Column
-    private BigDecimal precoTotalVendidoIngresso;
+    private String disponibility;
 
 }
 
